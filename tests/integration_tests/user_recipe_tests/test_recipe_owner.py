@@ -88,6 +88,30 @@ def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) 
     assert response.status_code == 403
 
 
+# def test_user_locked_recipe_as_admin(
+#         api_client: TestClient, user_tuple: list[TestUser], admin_user: TestUser,
+# ) -> None:
+#     usr_1, usr_2 = user_tuple
+#
+#     # Setup Recipe
+#     recipe_name = random_string()
+#     response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=usr_1.token)
+#     assert response.status_code == 201
+#
+#     # Get Recipe
+#     response = api_client.get(api_routes.recipes + f"/{recipe_name}", headers=usr_1.token)
+#     assert response.status_code == 200
+#     recipe = response.json()
+#
+#     # Lock Recipe
+#     recipe["settings"]["locked"] = True
+#     response = api_client.put(api_routes.recipes + f"/{recipe_name}", json=recipe, headers=usr_1.token)
+#
+#     # Try To Update Recipe as Admin
+#     response = api_client.put(api_routes.recipes + f"/{recipe_name}", json=recipe, headers=admin_user.token)
+#     assert response.status_code == 200
+
+
 def test_user_update_last_made(api_client: TestClient, user_tuple: list[TestUser]) -> None:
     usr_1, usr_2 = user_tuple
 
