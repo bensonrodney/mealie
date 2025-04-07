@@ -37,7 +37,10 @@ RUN apt-get update \
     libpq-dev \
     libwebp-dev \
     libsasl2-dev libldap2-dev libssl-dev \
-    gnupg gnupg2 gnupg1
+    gnupg gnupg2 gnupg1 \
+    vim
+
+RUN mkdir -p /etc/docker && echo '{"insecure-registries":["192.168.0.0/16"]}' > /etc/docker/daemon.json
 
 # create directory used for Docker Secrets
 RUN mkdir -p /run/secrets
