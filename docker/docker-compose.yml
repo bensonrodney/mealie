@@ -1,14 +1,14 @@
 services:
   mealie:
     container_name: mealie
-    image: mealie:dev
+    image: mealie:v2.8.0-jm
     build:
       context: ../
       target: production
       dockerfile: ./docker/Dockerfile
     restart: always
     volumes:
-      - mealie-data:/app/data/
+      - ./mealie-data:/app/data/
     ports:
       - 9091:9000
     environment:
