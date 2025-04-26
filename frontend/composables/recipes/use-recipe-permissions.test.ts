@@ -86,10 +86,20 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(
       createRecipe({}),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id", groupId: "other-group-id"}),
+      createUser({ id: "other-user-id", groupId: "other-group-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });
+
+  test("when user is not recipe owner, and user is other group, but user is admin, can edit", () => {
+    const result = useRecipePermissions(
+      createRecipe({}),
+      createRecipeHousehold({}),
+      createUser({ id: "other-user-id", groupId: "other-group-id", admin: true }),
+    );
+    expect(result.canEditRecipe.value).toBe(true);
+  });
+
 
   test("when user is not recipe owner, and user is other household, and household is unlocked, can edit", () => {
     const result = useRecipePermissions(
@@ -113,7 +123,7 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(
       createRecipe({}, true),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id"}),
+      createUser({ id: "other-user-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });

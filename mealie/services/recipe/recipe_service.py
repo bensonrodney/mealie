@@ -69,6 +69,9 @@ class RecipeService(RecipeServiceBase):
         if recipe.settings is None:
             raise exceptions.UnexpectedNone("Recipe Settings is None")
 
+        if self.user.admin:
+            return True
+
         # Check if this user owns the recipe
         if self.user.id == recipe.user_id:
             return True
@@ -86,7 +89,7 @@ class RecipeService(RecipeServiceBase):
         return True
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
-        return recipe.user_id == self.user.id
+        return self.user.admin or recipe.user_id == self.user.id
 
     def check_assets(self, recipe: Recipe, original_slug: str) -> None:
         """Checks if the recipe slug has changed, and if so moves the assets to a new file with the new slug."""
